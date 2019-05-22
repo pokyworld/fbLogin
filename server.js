@@ -11,8 +11,8 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 // Use Routes
-app.use("/api/users", require("./routes/api/users"));
-// app.use("/api/login", require("./routes/api/login"));
+// app.use("/api/users", require("./routes/api/users"));
+app.use("/api/login", require("./routes/api/login"));
 app.use("/login", require("./routes/login"));
 
 // Static Files
@@ -20,8 +20,10 @@ app.use(express.static('client/public'));
 
 const port = process.env.port || 443;
 const httpsOptions = {
-    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.local.crt')),
-    key: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.local.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'localhost.crt')),
+    // cert: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.local.crt')),
+    key: fs.readFileSync(path.join(__dirname, 'ssl', 'localhost.key')),
+    // key: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.local.key')),
 };
 https.createServer(httpsOptions, app)
     .listen(port, () => console.log(`Server started. Listening on port: ${port}`));

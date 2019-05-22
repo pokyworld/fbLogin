@@ -1,4 +1,24 @@
 // Login to Facebook - imports from config & updates global var: fbLoggedIn
+
+var fbToken = "";
+var fbLoggedIn = false;
+
+if (window.addEventListener) {
+    window.addEventListener('load', () => {
+
+        // Facebook Login
+        document.querySelector('#fbLoginButton').addEventListener('click', () => {
+            if (!fbLoggedIn) {
+                fbLogin();
+            } else {
+                fbLogout();
+            }
+        }, false);
+    });
+} else {
+    alert("This browser no longer supported");
+}
+
 const fbLogin = () => {
 
     FB.init({
@@ -16,13 +36,14 @@ const fbLogin = () => {
                     FB.getLoginStatus((res) => {
                         if (res.authResponse) {
                             fbToken = res.authResponse.accessToken;
+                            getFbUserData(fbToken);
                         }
                     });
-                    FB.api('/me', (res) => {
-                        // console.log(`Login: Now logged in as: ${res.name}`);
-                        getFbUserData(fbToken);
-                        return fbToken;
-                    });
+                    // FB.api('/me', (res) => {
+                    //     // console.log(`Login: Now logged in as: ${res.name}`);
+                    //     getFbUserData(fbToken);
+                    //     return fbToken;
+                    // });
                 } else {
                     console.log('Login: User cancelled login or did not fully authorize.');
                 }
@@ -37,12 +58,14 @@ const fbLogin = () => {
 // Get FB User Data
 const getFbUserData = (fbToken) => {
     // console.log(fbToken);
-    FB.api('/me', { locale: 'en_US', fields: 'id,name,first_name,last_name,email,link,gender,location,picture' },
+    FB.api('/me', { locale: 'en_US', fields: 'id, name, first_name, last_name, email, link, gender, location, picture' },
         (res) => {
+            const { name, email } = res;
             document.querySelector('#fbLoginText').innerHTML = 'Logout from  Facebook.';
-            document.querySelector('#fbStatus').innerHTML = `Logged in as: ${res.name}`;
+            document.querySelector('#fbStatus').innerHTML = `Logged in as: ${name}`;
             document.querySelector('#fbToken').innerHTML = `${fbToken}`;
             fbLoggedIn = true;
+            fbPostToken(name, email, fbToken);
         }
     );
 }
@@ -67,4 +90,19 @@ const fbLogout = () => {
             });
         }
     });
+}
+
+const fbPostToken = (name, email, token) => {
+    const url = "/api/login/facebook";
+    fetch(url, {
+        credentials: 'same-origin', // 'include', default: 'omit'
+        method: 'POST', // 'GET', 'PUT', 'DELETE', etc.
+        body: JSON.stringify({ email, token }), // Coordinate the body type with 'Content-Type'
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    })
+        .then(res => res.json())
+        .then(json => console.log(json))
+        .catch(err => console.log(err));
 }

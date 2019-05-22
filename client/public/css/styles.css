@@ -1,0 +1,12 @@
+
+* { font-family: 'Roboto', sans-serif}
+
+.loginButton {
+    margin: 15px 0;
+    width: 300px;
+}
+
+.fa-facebook-f, .fa-twitter, .fa-yahoo, .fa-google, .fa-linkedin, .fa-github {
+    float: left;
+    margin: 5px 10px;
+}

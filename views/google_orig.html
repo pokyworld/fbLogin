@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id"
+        content="288771604107-gtd5at10gib521o3gofaa69lsrf5c44t.apps.googleusercontent.com">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+        integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"></script>
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap-social.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <h1>Google Login</h1>
+    <div class="container">
+        <button id="my-signin2" type="button" class="g-signin2 btn btn-social btn-google loginButton"
+            data-onsuccess="onSignIn" data-theme="light">
+            <i class="fab fa-google "></i>
+            &nbsp;
+            <span id="ggLoginText">
+                Login with Google
+            </span>
+        </button>
+        <a href="#" onclick="signOut();">Sign out</a>
+
+        <!-- Google -->
+        <!-- <button id="ggLoginButton" type="button" class="btn btn-social btn-google loginButton"><i
+                class="fab fa-google "></i>
+            &nbsp;
+            <span id="ggLoginText">
+                Login with Google
+            </span>
+        </button>
+        <p id="ggStatus"></p>
+        <p id="ggToken"></p> -->
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+    <!-- Social Login Clients-->
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+
+    <!-- <script src="/config/index.js"></script> -->
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <!-- <script src="/scripts/ggLogin.js"></script> -->
+    <script>
+        var googleUser = {};
+        var startApp = function () {
+            gapi.load('auth2', function () {
+                // Retrieve the singleton for the GoogleAuth library and set up the client.
+                auth2 = gapi.auth2.init({
+                    client_id: '288771604107-gtd5at10gib521o3gofaa69lsrf5c44t.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    // Request scopes in addition to 'profile' and 'email'
+                    //scope: 'additional_scope'
+                });
+                attachSignin(document.querySelector('#ggLogin'));
+            });
+        };
+
+        function renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 100,
+                'height': 250,
+                'longtitle': true,
+                'theme': 'light',
+                'onsuccess': onSignIn,
+                'onfailure': signOut
+            });
+        }
+
+        function attachSignin(element) {
+            console.log(element.id);
+            auth2.attachClickHandler(element, {},
+                function (googleUser) {
+                    document.getElementById('ggStatus').innerText = "Signed in: " +
+                        googleUser.getBasicProfile().getName();
+                }, function (error) {
+                    alert(JSON.stringify(error, undefined, 2));
+                });
+        }
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            // The ID token you need to pass to your backend:
+            const id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

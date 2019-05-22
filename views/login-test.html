@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="favicon.ico">
 
+    <meta name="google-signin-client_id"
+        content="288771604107-gtd5at10gib521o3gofaa69lsrf5c44t.apps.googleusercontent.com">
+
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -14,28 +17,81 @@
         integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
         crossorigin="anonymous"></script>
     <title>Login Page</title>
-    <style>
-        #fbLoginButton {
-            margin: 15px 0;
-            width: 300px;
-        }
-
-        .fa-facebook-f {
-            float: left;
-            margin: 5px 10px;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-social.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <button id="fbLoginButton" type="button" class="btn btn-primary"><i class="fab fa-facebook-f "></i>
-        &nbsp;
-        <span id="fbLoginText">
-            Login with Facebook
-        </span>
-    </button>
-    <p id="fbStatus"></p>
-    <p id="fbToken"></p>
+    <div class="container">
+
+        <!-- Facebook -->
+        <button id="fbLoginButton" type="button" class="btn btn-social btn-facebook loginButton"><i
+                class="fab fa-facebook-f "></i>
+            &nbsp;
+            <span id="fbLoginText">
+                Login with Facebook
+            </span>
+        </button>
+        <p id="fbStatus"></p>
+        <p id="fbToken"></p>
+
+        <!-- Twitter -->
+        <button id="twLoginButton" type="button" class="btn btn-social btn-twitter loginButton"><i
+                class="fab fa-twitter "></i>
+            &nbsp;
+            <span id="twLoginText">
+                Login with Twitter
+            </span>
+        </button>
+        <p id="twStatus"></p>
+        <p id="twToken"></p>
+
+        <!-- Google -->
+        <button id="ggLoginButton" type="button" class="btn btn-social btn-google loginButton"><i
+                class="fab fa-google "></i>
+            &nbsp;
+            <span id="ggLoginText">
+                Login with Google
+            </span>
+        </button>
+        <p id="ggStatus"></p>
+        <p id="ggToken"></p>
+
+        <!-- YouTube -->
+        <button id="yhLoginButton" type="button" class="btn btn-social btn-yahoo loginButton"><i
+                class="fab fa-yahoo "></i>
+            &nbsp;
+            <span id="yhLoginText">
+                Login with Yahoo!
+            </span>
+        </button>
+        <p id="ytStatus"></p>
+        <p id="ytToken"></p>
+
+        <!-- Github -->
+        <button id="ghLoginButton" type="button" class="btn btn-social btn-github loginButton"><i
+                class="fab fa-github "></i>
+            &nbsp;
+            <span id="ghLoginText">
+                Login with Github
+            </span>
+        </button>
+        <p id="ghStatus"></p>
+        <p id="ghToken"></p>
+
+        <!-- LinkedIn -->
+        <button id="liLoginButton" type="button" class="btn btn-social btn-linkedin loginButton"><i
+                class="fab fa-linkedin "></i>
+            &nbsp;
+            <span id="liLoginText">
+                Login with LinkedIn
+            </span>
+        </button>
+        <p id="liStatus"></p>
+        <p id="liToken"></p>
+
+    </div>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -48,28 +104,18 @@
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
 
+    <!-- Social Login Clients-->
     <script src="https://connect.facebook.net/en_US/sdk.js"></script>
-    <script src="config/index.js"></script>
-    <script src="/scripts/fbLogin.js"></script>
-    <script>
-        var fbToken = "";
-        var fbLoggedIn = false;
-        if (window.addEventListener) {
-            window.addEventListener('load', () => {
-                // Facebook Login
-                document.querySelector('#fbLoginButton').addEventListener('click', () => {
-                    if (!fbLoggedIn) {
-                        fbLogin();
-                    } else {
-                        fbLogout();
-                    }
-                }, false);
+    <script src="https://apis.google.com/js/api:client.js"></script>
 
-            }, false); //W3C
-        } else {
-            alert("This browser no longer supported");
-        }
-    </script>
+    <script src="config/index.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script src="/scripts/fbLogin.js"></script>
+    <script src="/scripts/twLogin.js"></script>
+    <script src="/scripts/ggLogin.js"></script>
+    <script src="/scripts/yhLogin.js"></script>
+    <script src="/scripts/ghLogin.js"></script>
+    <script src="/scripts/liLogin.js"></script>
 
 </body>
 
