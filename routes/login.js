@@ -55,6 +55,22 @@ router.get('/twitter', (req, res) => {
 
 });
 
+// @route   GET login/twitter/callback
+// @desc    display callback data
+// @access  Public
+router.get('/twitter/callback', (req, res) => {
+
+    // const data = {};
+    // const loadLogin = () => fs.readFileSync(path.join(__dirname, '../views', 'twitter.html')).toString();
+    // const template = handlebars.compile(loadLogin());
+    // res.send(template(data));
+
+    // console.log(req._parsedUrl);
+    // res.json(JSON.stringify(req));
+    res.json(req._parsedUrl);
+
+});
+
 // @route   GET login/linkedin
 // @desc    display login page using views/linkedin.html
 // @access  Public

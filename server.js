@@ -20,10 +20,8 @@ app.use(express.static('client/public'));
 
 const port = process.env.port || 443;
 const httpsOptions = {
-    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'localhost.crt')),
-    // cert: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.local.crt')),
-    key: fs.readFileSync(path.join(__dirname, 'ssl', 'localhost.key')),
-    // key: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.local.key')),
+    cert: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.ddns.info.crt')),
+    key: fs.readFileSync(path.join(__dirname, 'ssl', 'pokyworld.ddns.info.key')),
 };
 https.createServer(httpsOptions, app)
     .listen(port, () => console.log(`Server started. Listening on port: ${port}`));

@@ -61,8 +61,9 @@ const getFbUserData = (fbToken) => {
     FB.api('/me', { locale: 'en_US', fields: 'id, name, first_name, last_name, email, link, gender, location, picture' },
         (res) => {
             const { name, email } = res;
-            document.querySelector('#fbLoginText').innerHTML = 'Logout from  Facebook.';
-            document.querySelector('#fbStatus').innerHTML = `Logged in as: ${name}`;
+            document.querySelector('#fbLoginText').innerHTML = `Logout from Facebook`;
+            document.querySelector('#fbStatus').innerHTML = `LoggedIn: ${name}`;
+            document.querySelector('#fbEmail').innerHTML = `${email}`;
             document.querySelector('#fbToken').innerHTML = `${fbToken}`;
             fbLoggedIn = true;
             fbPostToken(name, email, fbToken);
@@ -83,9 +84,10 @@ const fbLogout = () => {
     FB.getLoginStatus((res) => {
         if (res.authResponse) {
             FB.logout(() => {
-                document.querySelector('#fbLoginText').innerHTML = 'Login with Facebook.';
+                document.querySelector('#fbLoginText').innerHTML = `Login with Facebook.`;
                 document.querySelector('#fbStatus').innerHTML = `Logged out`;
-                document.querySelector('#fbToken').innerHTML = "";
+                document.querySelector('#fbEmail').innerHTML = ``;
+                document.querySelector('#fbToken').innerHTML = ``;
                 fbLoggedIn = false;
             });
         }
