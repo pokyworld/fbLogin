@@ -20,7 +20,7 @@
     "guid": "0.0.12",
     "handlebars": "^4.1.2",
     "jsonwebtoken": "^8.5.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "nodemon": "^1.19.0",
     "querystring": "^0.2.0",
     "remove": "^0.1.5",
